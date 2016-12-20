@@ -1,0 +1,244 @@
+@charset "UTF-8";
+/* CSS Document */
+
+
+html {
+}
+
+
+body {
+	margin: 0;
+	padding: 0;
+	background-color: #11141c;
+    background-color: #160d1b;
+	width: 100%;
+	
+	-webkit-font-smoothing: antialiased;
+    -moz-font-smoothing: antialiased;
+    -o-font-smoothing: antialiased;
+	
+	color: #fff;
+    overflow-x: hidden;
+    text-align: center;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+canvas {
+    display: block;
+    height: 100%;
+}
+
+
+#content {
+    width: 80%;
+    margin: 0 auto;
+    text-align: left;
+    font-family: 'Raleway', sans-serif;
+    font-size: 22px;
+}
+
+#head {
+    font-family: 'Quicksand', sans-serif;
+    font-size: 150px;
+    font-weight: 300;
+    text-align: center;
+    position:absolute;
+    top: 36%;
+    width: 100%;
+    text-transform: uppercase;
+}
+
+#intro {
+    font-size: 30px;
+    line-height: 44px;
+    font-weight: 300;
+}
+
+#description {
+}
+
+.italic {
+    font-size: 19px;
+    line-height: 32px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
+}
+
+.row {
+    position: relative;
+    width: 100%;
+}
+
+.label {
+    font-size: 16px;
+    line-height: 32px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
+}
+
+.list {
+    line-height: 34px;
+    width: 100%;
+}
+
+.block {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.single {
+    width: 30%;
+}
+
+.double {
+    width: 65%;
+}
+
+.margin {
+    margin-right: 5%;
+}
+
+.list .single {
+    min-width: 285px;
+    margin-top: 32px;
+    padding-top: 36px;
+    border-top: 2px dashed #620973;
+}
+
+.listItem {
+    width: 100%;
+}
+
+.bar {
+    width: 14%;
+    height: 5px;
+    background-color: #ffffff;
+    display: inline-block;
+    vertical-align: top;
+    margin: 36px 0 140px 0;
+}
+
+.shortBar {
+}
+
+.button {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 5px solid #ffffff;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    line-height: 66px;
+    font-size: 22px;
+    -webkit-transition: border 0.4s;
+    transition: border 0.4s;
+}
+
+.button:hover {
+    cursor: pointer;
+    border: 5px solid #620973;
+}
+
+.hover {
+    -webkit-transition: color 0.4s;
+    transition: color 0.4s;
+}
+
+.hover:hover {
+    color: #e4647f;
+}
+
+.btnSub {
+    margin-top: 22px;
+}
+
+
+#share {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 22px;
+}
+
+.shareBtn {
+    line-height: 32px;
+    font-size: 22px;
+}
+
+.vertDiv {
+    display: inline-block;
+    margin: 0 16px 0 16px;
+    width: 2px;
+    height: 32px;
+    background-color: #620973;
+}
+
+#fb {
+
+}
+
+#twitter {
+
+}
+
+#footer {
+    width: 100%;
+    text-align: right;
+    margin-bottom: 22px;
+    font-size: 16px;
+    line-height: 32px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
+}
+
+
+*.unselectable {
+   -moz-user-select: -moz-none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+
+
+
+/* MEDIA BREAK POINTS */
+@media (max-width:1250px){
+    #content {
+        width: 90%;
+    }
+}
+@media (max-width:1000px){
+    .double {
+        width: 100%;
+    }
+    #order {
+        margin-top: 100px;
+        min-width: 285px;
+    }
+}
+@media (max-width:600px){
+    #content {
+        width: 85%;
+    }
+    .single {
+        width: 100%;
+    }
+    .shareBtn {
+        font-size: 18px;
+    }
+    .bar {
+        width: 33%;
+    }
+}
