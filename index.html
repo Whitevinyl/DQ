@@ -13,10 +13,17 @@
 
     <script type="text/javascript" src="js/lib/tween.min.js"></script>
     <script type="text/javascript" src="js/lib/Tone.min.js"></script>
+    <script type="text/javascript" src="js/lib/tombola.js"></script>
+    <script type="text/javascript" src="js/lib/colorflex.js"></script>
+    <script type="text/javascript" src="js/lib/perlin-simplex.js"></script>
     <!--<script type="text/javascript" src="js/lib/three.min.js"></script>-->
     <!--<script type="text/javascript" src="js/lib/PixelPalette.js"></script>-->
 
     <script type="text/javascript" src="js/_OBJECTS.js"></script>
+    <script type="text/javascript" src="js/_BURSTS.js"></script>
+    <script type="text/javascript" src="js/_WAVES.js"></script>
+    <script type="text/javascript" src="js/_DIAMOND.js"></script>
+    <script type="text/javascript" src="js/_RADIAL.js"></script>
     <script type="text/javascript" src="js/_MAIN.js"></script>
     <script type="text/javascript" src="js/_METRICS.js"></script>
     <script type="text/javascript" src="js/_INTERACTION.js"></script>
@@ -44,9 +51,8 @@
 <body onload="init()" onresize="metrics()">
 
 
-    <div class="row">
+    <div id="canvasRow" class="row">
 
-        <div id="head">Disquiet</div>
         <canvas id="cnvs" class="unselectable"></canvas>
 
     </div>
@@ -58,20 +64,33 @@
 
         <div class="row">
             <div id="intro" class="block double margin">
-                Disquiet benefit compilation Helios non profit Ghostly release, ambient artists curated, proceeds women placeholder minorities.
+                Disquiet is a benefit compilation of ambient artists, across 4 volumes, with 100% of proceeds going to non-profits supporting minorities, women's rights & the environment.
             </div><div id="order" class="block single">
                 <div class="button">Order Now</div>
-                <div class="btnSub italic">Volume 1 of 4, available now</div>
+                <div class="btnSub">Volume I, digital available now via Unseen, vinyl tba via Western Vinyl.</div>
             </div>
+        </div>
+
+        <div class="bar"></div>
+
+
+        <div class="row volumeWrap">
+            <div class="strip topGrad"></div>
+            <div class="volumeInner">
+                <div class="volume block double">
+                    <div class="volTitle">Volume I</div>
+                    <div class="volDesc">featuring Ryuichi Sakamoto, Helios, Ólafur Arnalds & Nils Frahm, Hammock, The Album Leaf, Rafael Anton Irisarri, Adam Wiltzie, Loscil, Benoît Pioulard, Sleep of Being, Rob Simonsen.</div>
+                    <div class="volSub">out now</div>
+                </div>
+            </div>
+            <div class="strip btmGrad"></div>
         </div>
 
 
 
-        <div class="bar"></div>
-
         <div class="row">
             <div class="list">
-                <div class="label">Contributors:</div>
+                <div class="label">All Contributors:</div>
 
                 <div class="block single margin">
                     <div class="listItem hover">Ryuichi Sakamoto</div>
@@ -83,11 +102,9 @@
                     <div class="listItem hover">Adam Wiltzie</div>
                     <div class="listItem hover">Loscil</div>
                     <div class="listItem hover">Benoît Pioulard</div>
-                    <div class="listItem hover"> Sleep of Being</div>
+                    <div class="listItem hover">Sleep of Being</div>
                     <div class="listItem hover">Rob Simonsen</div>
-                    <div class="listItem hover">Deru</div>
                 </div><div class="block single margin notFirst">
-                    <div class="listItem hover">Jon Hopkins</div>
                     <div class="listItem hover">Julianna Barwick</div>
                     <div class="listItem hover">Peter Broderick</div>
                     <div class="listItem hover">Balmorhea</div>
@@ -95,9 +112,10 @@
                     <div class="listItem hover">Christina Vantzou</div>
                     <div class="listItem hover">Ben Lukas Boysen</div>
                     <div class="listItem hover">Ex Confusion</div>
-                    <div class="listItem hover">Headphone Commute</div>
+                    <div class="listItem hover">Rhian Sheehan</div>
                     <div class="listItem hover">Mint Julep</div>
                     <div class="listItem hover">Sawako</div>
+                    <div class="listItem hover">Deru</div>
                 </div><div class="block single notFirst">
                     <div class="listItem hover">Taylor Deupree</div>
                     <div class="listItem hover">Botany</div>
@@ -106,7 +124,7 @@
                     <div class="listItem hover">Eluvium</div>
                     <div class="listItem hover">Daniel Menche</div>
                     <div class="listItem hover">Last Days</div>
-                    <div class="listItem hover">Rhian Sheehan</div>
+                    <div class="listItem hover">Headphone Commute</div>
                     <div class="listItem hover">Raum</div>
                     <div class="listItem hover">Mary Lattimore</div>
                     <div class="listItem hover">Sanso-Xtro</div>
@@ -116,43 +134,61 @@
 
         <div class="bar shortBar"></div>
 
-        <div class="row">
-            <div id="description" class="italic block double">We are curating an ambient music benefit compilation titled "Disquiet" and plan to release it in late December. 100% of the proceeds generated from the sale of the album will go to non-profits that support minorities, women's rights and the environment.</div>
+        <!--<div class="row">
+            <div id="description" class="italic block double">We are curating an ambient music benefit compilation titled "Disquiet" and plan to release it in late December. 100% of the proceeds generated from the sale of the album will go to non-profits that support minorities, women's rights and the environment.
+                <div id="attr">~ Keith & Hollie Kenniff</div>
+            </div>
             <div class="block single"></div>
         </div>
 
-        <div class="bar"></div>
+        <div class="bar"></div>-->
 
         <div class="row">
+            <div class="label">Non-Profits:</div>
+            <div class="nonProfits">
+
+                <span class="nonProf hover"><a href="http://www.thetrevorproject.org/" target="_blank">The Trevor Project</a></span>
+                <span class="nonProf hover"><a href="" target="_blank">Anti-Defamation League</a></span>
+                <span class="nonProf hover"><a href="http://www.hrc.org/" target="_blank">Human Rights Campaign</a></span>
+                <span class="nonProf hover"><a href="http://www.nnirr.org/" target="_blank">National Network for Immigrant & Refugee Rights</a></span>
+                <span class="nonProf hover"><a href="http://www.naacpldf.org/" target="_blank">NAACP Legal Defense & Education Fund</a></span>
+                <span class="nonProf hover"><a href="http://www.maldef.org/" target="_blank">Mexican American Legal Defense & Education</a></span>
+                <span class=" hover"><a href="https://www.nrdc.org/" target="_blank">Natural Resources Defense Council</a></span>
+            </div>
+
+
+
+        </div>
+        <div class="bar shortBar"></div>
+
+        <!--<div class="row">
             <div class="list">
                 <div class="label">Non-Profits:</div>
 
                 <div class="block single margin">
-                    <div class="listItem hover">HRC</div>
-                    <div class="listItem hover">The Trevor Project</div>
-                    <div class="listItem hover">Planned Parenthood</div>
+                    <div class="listItem hover"><div class="listNo">01</div><a href="http://www.thetrevorproject.org/" target="_blank">The Trevor Project</a></div>
+                    <div class="listItem hover"><div class="listNo">02</div><a href="" target="_blank">Anti-Defamation League</a></div>
+                    <div class="listItem hover"><div class="listNo">03</div><a href="http://www.hrc.org/" target="_blank">Human Rights Campaign</a></div>
                 </div><div class="block single margin notFirst">
-                    <div class="listItem hover">Black Lives Matter</div>
-                    <div class="listItem hover">NNIRR</div>
-                    <div class="listItem hover">Peter Broderick</div>
+                    <div class="listItem listDouble hover"><div class="listNo">04</div><a href="http://www.nnirr.org/" target="_blank">National Network for Immigrant & Refugee Rights</a></div>
+                    <div class="listItem listDouble hover"><div class="listNo">05</div><a href="http://www.naacpldf.org/" target="_blank">NAACP Legal Defense & Education Fund</a></div>
                 </div><div class="block single notFirst">
-                    <div class="listItem hover">Taylor Deupree (12k)</div>
-                    <div class="listItem hover">Botany</div>
-                    <div class="listItem hover">Windy & Carl</div>
+                    <div class="listItem listDouble hover"><div class="listNo">06</div><a href="http://www.maldef.org/" target="_blank">Mexican American Legal Defense & Education</a></div>
+                    <div class="listItem listDouble hover"><div class="listNo">07</div><a href="https://www.nrdc.org/" target="_blank">Natural Resources Defense Council</a></div>
                 </div>
             </div>
         </div>
 
-        <div class="bar shortBar"></div>
+        <div class="bar shortBar"></div>-->
 
         <div class="row">
             <div id="share" class="block">
                 <div class="label">Share:</div>
-                <div id="fb" class="block shareBtn"><a href="" class="hover">Facebook</a></div>
+                <div id="fb" class="block shareBtn"><a href="http://www.facebook.com/sharer.php?u=http://unseen-music.com/disquiet" target="_blank" class="hover">Facebook</a></div>
                 <div class="vertDiv"></div>
-                <div id="twitter" class="block shareBtn"><a href="" class="hover">Twitter</a></div>
+                <div id="twitter" class="block shareBtn"><a href="http://twitter.com/share?text=Disquiet benefit ambient compilation: &url=http://unseen-music.com/disquiet" target="_blank" class="hover">Twitter</a></div>
                 <div class="vertDiv"></div>
-                <div id="google" class="block shareBtn"><a href="" class="hover">Google +</a></div>
+                <div id="google" class="block shareBtn"><a href="https://plus.google.com/share?url=http://unseen-music.com/disquiet" target="_blank" class="hover">Google +</a></div>
             </div>
 
             <div id="footer" class="italic block"><a href="http://whitevinyldesign.com" target="_blank" class="hover">Made by whitevinyl</a></div>

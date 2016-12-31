@@ -3,6 +3,11 @@
  */
 
 
+var Amethyst = new Image();
+Amethyst.src = 'img/full.png';
+var amRat = 500/420;
+
+
 //-------------------------------------------------------------------------------------------
 //  BG
 //-------------------------------------------------------------------------------------------
@@ -31,12 +36,88 @@ function drawBG() {
 
 function drawScene() {
 
-    var size = 20;
+    var s = 1;
+    var u = units * s;
 
+    var x = dx;
+    var y = dy - (scrollOffset/4);
+    var arrowY = dy + (170*units) - (scrollOffset/2);
+
+    cxa.globalAlpha = 1;
+
+
+
+
+    // bg shape //
     setColor(bgCols[1]);
-    cxa.fillRect(dx - (size * units), dy - (size * units), 2 * (size * units), 2 * (size * units));
+    drawShape(x,y,u);
 
 
+    // waves //
+    cxa.lineWidth = 2;
+    waves.draw();
+
+    // image //
+    cxa.globalAlpha = 0.5;
+    var h = 230*u;
+    cxa.drawImage(Amethyst,dx-(h/2),y - ((h*amRat)/2),h,h*amRat);
+    cxa.globalAlpha = 1;
+
+
+    // diamond //
+    diamond.draw();
+
+
+    // particles //
+    bursts.draw();
+
+
+
+
+    // arrow //
+    setRGBA(255,255,255,1);
+    cxa.lineWidth = 1.5;
+    drawArrow(x,arrowY,20*u);
+
+    // title //
+    cxa.textAlign = 'center';
+    cxa.font = '300 '+headerType + 'px Quicksand';
+    cxa.fillText('DISQUIET',dx,dy + (headerType * 0.35));
+}
+
+
+
+function drawShape(x,y,u) {
+    cxa.beginPath();
+    cxa.moveTo(x,y + (137*u));
+    cxa.lineTo(x - (114*u),y - (28.5*u));
+    cxa.lineTo(x - (71*u),y - (85*u));
+    cxa.lineTo(x - (71*u),y - (94*u));
+    cxa.lineTo(x - (36*u),y - (130*u));
+    cxa.lineTo(x - (23*u),y - (116*u));
+    cxa.lineTo(x - (14*u),y - (124*u));
+    cxa.lineTo(x - (3*u),y - (114*u));
+    cxa.lineTo(x + (3.5*u),y - (121*u));
+    cxa.lineTo(x + (8*u),y - (111*u));
+    cxa.lineTo(x + (57*u),y - (136*u));
+    cxa.lineTo(x + (71.5*u),y - (130*u));
+    cxa.lineTo(x + (93.5*u),y - (63*u));
+    cxa.lineTo(x + (90*u),y - (50*u));
+    cxa.lineTo(x + (104.5*u),y - (45.5*u));
+    cxa.lineTo(x + (97*u),y - (14*u));
+    cxa.lineTo(x + (108.5*u),y - (10*u));
+    cxa.lineTo(x + (101*u),y + (13*u));
+    cxa.closePath();
+    cxa.fill();
+}
+
+
+function drawArrow(x,y,s) {
+    cxa.beginPath();
+    cxa.moveTo(x - (s/2),y - (s/4));
+    cxa.lineTo(x,y + (s/4));
+    cxa.lineTo(x + (s/2),y - (s/4));
+    cxa.stroke();
 }
 
 

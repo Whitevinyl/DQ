@@ -36,11 +36,17 @@ var mouseIsDown = false;
 
 
 // COLORS //
-var bgCols = [new RGBA(0,79,66,1),new RGBA(255,236,88,1)];
+var bgCols = [new RGBA(0,79,66,1),new RGBA(255,255,255,1),new RGBA(242,28,85,1),new RGBA(90,0,90,1,1),new RGBA(228,100,127,1,1),new RGBA(98,9,115,1,1)];
+var textCol = new RGBA(255,255,255,1);
 var masterCol = new RGBA(0,0,0,0);
 var highPass = new RGBA(0,0,0,0);
 var lowPass = new RGBA(0,0,0,0);
 
+
+var bursts;
+var waves;
+var diamond;
+var radial;
 
 
 //-------------------------------------------------------------------------------------------
@@ -53,34 +59,7 @@ function init() {
     ////////////// SETUP CANVAS ////////////
 
     canvas = document.getElementById("cnvs");
-    var target = canvas;
-
-    // MOUSE //
-    target.addEventListener("mousedown", mousePress, false);
-    target.addEventListener("mouseup", mouseRelease, false);
-    target.addEventListener("mousemove", mouseMove, false);
-
-    // TOUCH //
-    target.addEventListener('touchstart', function(event) {
-        if (event.targetTouches.length == 1) {
-            touch = event.targetTouches[0];
-            touchTakeover = true;
-        } else {
-            touchTakeover = false;
-        }
-        clickOrTouch();
-    }, false);
-    target.addEventListener('touchmove', function(event) {
-        event.preventDefault();
-        if (event.targetTouches.length == 1) {
-            touch = event.targetTouches[0];
-        }
-        mouseMove(event);
-    }, false);
-    target.addEventListener('touchend', function(event) {
-        mouseRelease();
-        touchTakeover = false;
-    }, false);
+    interactionInit(canvas);
 
     cxa = canvas.getContext("2d");
     cxa.mozImageSmoothingEnabled = false;
@@ -89,13 +68,28 @@ function init() {
     // SET CANVAS & DRAWING POSITIONS //
     metrics();
 
+
+    bursts = new Bursts();
+    bursts.setup();
+
+    waves = new Waves();
+    //waves.setup();
+
+    diamond = new Diamond();
+    diamond.setup();
+
+    radial = new Radial();
+    radial.setup();
+
     // DONE //
     scene = 1;
     draw();
 
+
+
     setTimeout( function() {
-        colourTo(bgCols[1],242,48,95,1,1.5);
-    },2000);
+        colourTo(bgCols[1],60,10,50,1,6);
+    },1000);
 
 
 
@@ -136,13 +130,32 @@ function update() {
     if (TWEEN) {
         TWEEN.update();
     }
+
+    bursts.update();
+    waves.update();
+    diamond.update();
+    radial.update();
 }
 
 
 
 
 
+function valueInRange(value,floor,ceiling) {
+    if (value < floor) {
+        value = floor;
+    }
+    if (value> ceiling) {
+        value = ceiling;
+    }
+    return value;
+}
 
+function lerp(current,destination,speed) {
+    return current + (((destination-current)/100) * speed);
+}
 
-
+function near(a,b,factor) {
+    return Math.round(a/factor) == Math.round(b/factor);
+}
 

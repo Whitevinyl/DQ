@@ -6,12 +6,62 @@
 //  INTERACTION
 //-------------------------------------------------------------------------------------------
 
+var scrollOffset = 0;
 
+function interactionInit(target) {
+
+    // MOUSE //
+    target.addEventListener("mousedown", mousePress, false);
+    target.addEventListener("mouseup", mouseRelease, false);
+    target.addEventListener("mousemove", mouseMove, false);
+
+
+    // TOUCH //
+    target.addEventListener('touchstart', function(event) {
+        if (event.targetTouches.length == 1) {
+            touch = event.targetTouches[0];
+            touchTakeover = true;
+        } else {
+            touchTakeover = false;
+        }
+        clickOrTouch();
+    }, false);
+    target.addEventListener('touchmove', function(event) {
+        event.preventDefault();
+        if (event.targetTouches.length == 1) {
+            touch = event.targetTouches[0];
+        }
+        mouseMove(event);
+    }, false);
+    target.addEventListener('touchend', function(event) {
+        mouseRelease();
+        touchTakeover = false;
+    }, false);
+
+    window.addEventListener("scroll", function(event) {scrollEvent(event)}, false);
+}
+
+
+function scrollEvent() {
+    var m = 40;
+    var s = window.scrollY;
+
+    if (s<m) {
+        s = 0;
+    }
+    else {
+        s = s-m;
+    }
+
+    scrollOffset = s;
+}
 
 function mousePress() {
-
     mouseIsDown = true;
     rolloverCheck();
+    bursts.burst1();
+
+    waves.burst();
 
 }
 

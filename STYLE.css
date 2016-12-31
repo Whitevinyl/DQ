@@ -9,7 +9,6 @@ html {
 body {
 	margin: 0;
 	padding: 0;
-	background-color: #11141c;
     background-color: #160d1b;
 	width: 100%;
 	
@@ -30,16 +29,24 @@ a {
 
 canvas {
     display: block;
+    width: 100%;
     height: 100%;
 }
 
+#canvasRow {
+}
+
+#cnvs {
+    width: 100%;
+    height: 100%;
+}
 
 #content {
     width: 80%;
     margin: 0 auto;
     text-align: left;
     font-family: 'Raleway', sans-serif;
-    font-size: 22px;
+    font-size: 21px;
 }
 
 #head {
@@ -62,6 +69,15 @@ canvas {
 #description {
 }
 
+#attr {
+    display: block;
+    font-size: 22px;
+    line-height: 32px;
+    margin: 30px 0 0 -17px;
+    font-family: 'Raleway', sans-serif;
+    font-style: normal;
+}
+
 .italic {
     font-size: 19px;
     line-height: 32px;
@@ -82,7 +98,7 @@ canvas {
 }
 
 .list {
-    line-height: 34px;
+    line-height: 36px;
     width: 100%;
 }
 
@@ -112,6 +128,23 @@ canvas {
 
 .listItem {
     width: 100%;
+    position: relative;
+}
+
+.listDouble {
+    line-height: 30px !important;
+    margin-bottom: 16px;
+    max-width: 90%;
+}
+
+.listNo {
+    position: absolute;
+    top: 3px;
+    left: -22px;
+    color: #620973;
+    font-size: 13px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
 }
 
 .bar {
@@ -121,6 +154,11 @@ canvas {
     display: inline-block;
     vertical-align: top;
     margin: 36px 0 140px 0;
+}
+
+#intro .bar {
+    width: 21.4%;
+    display: block;
 }
 
 .shortBar {
@@ -136,7 +174,7 @@ canvas {
     text-transform: uppercase;
     letter-spacing: 4px;
     line-height: 66px;
-    font-size: 22px;
+    font-size: 21px;
     -webkit-transition: border 0.4s;
     transition: border 0.4s;
 }
@@ -157,8 +195,89 @@ canvas {
 
 .btnSub {
     margin-top: 22px;
+    font-size: 19px;
+    line-height: 33px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
 }
 
+.volumeWrap {
+    margin-bottom: 140px;
+
+    border-top: 5px solid #e4647f;
+    border-bottom: 5px solid #620973;
+    /*border-top: 2px dashed #620973;
+    border-bottom: 2px dashed #620973;*/
+    /*border-top: 2px dashed #e4647f;
+    border-bottom: 2px dashed #e4647f;*/
+}
+
+.volumeInner {
+
+    text-align: center;
+    padding: 36px 0 36px 0;
+}
+
+.topGrad {
+    /*background: #e4647f;*/
+    /*background: -webkit-linear-gradient(left, #e4647f, #620973);
+    background: -o-linear-gradient(right, #e4647f, #620973);
+    background: -moz-linear-gradient(right, #e4647f, #620973);
+    background: linear-gradient(to right, #e4647f, #620973);*/
+}
+
+.btmGrad {
+    /*background: #620973;*/
+    /*background: -webkit-linear-gradient(left, #620973, #310439);
+    background: -o-linear-gradient(right, #620973, #310439);
+    background: -moz-linear-gradient(right, #620973, #310439);
+    background: linear-gradient(to right, #620973, #310439);*/
+}
+
+.strip {
+    width: 100%;
+    height: 2px;
+}
+
+.volume {
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+.volTitle {
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+}
+
+.volDesc {
+    font-size: 19px;
+    line-height: 33px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
+}
+
+.volSub {
+    font-size: 16px;
+    line-height: 32px;
+    font-family: 'PT Sans', sans-serif;
+    font-style: italic;
+    margin-top: 16px;
+    display: none;
+}
+
+.stripes {
+    background-image: url("img/stripe.svg");
+    background-repeat: repeat;
+}
+
+.stripe {
+    width: 100%;
+    height: 5px;
+    background-image: url("img/stripe.svg");
+    background-repeat: repeat;
+}
 
 #share {
     width: 100%;
@@ -177,6 +296,21 @@ canvas {
     width: 2px;
     height: 32px;
     background-color: #620973;
+}
+
+.nonProf {
+    border-right: 2px solid #620973;
+    height: 32px;
+    padding-right: 22px;
+    margin-right: 16px;
+}
+
+.nonProfits {
+    margin-top: 16px;
+    /*padding-top: 36px;
+    border-top: 2px dashed #620973;*/
+    line-height: 44px;
+    width: 100%;
 }
 
 #fb {
