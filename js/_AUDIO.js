@@ -34,7 +34,7 @@ var pluckWeight = [
 
 function setupAudio() {
     var i;
-    Tone.Master.volume.value = 0;
+    Tone.Master.volume.value = -3;
     Limiter = new Tone.Limiter(-1);
     Limiter.toMaster();
 
@@ -251,7 +251,7 @@ function Sine() {
     this.Channel.connect(MasterIn);
     this.Ctx = Tone.context;
     this.Light = 0;
-    this.Channel.send("reverb",-50);
+    //this.Channel.send("reverb",-50);
 }
 
 Sine.prototype.setup = function() {
@@ -492,7 +492,7 @@ function Clap() {
     this.Channel.connect(MasterIn);
     this.Ctx = Tone.context;
     this.Light = 0;
-    this.Channel.send("reverb",-50);
+    this.Channel.send("reverb",-60);
 }
 
 Clap.prototype.setup = function() {
@@ -530,7 +530,7 @@ Clap.prototype.setup = function() {
 
 Clap.prototype.trigger = function(v) {
     this.setup();
-    v = v || 50;
+    v = v || 45;
     var velocity = v/128;
     var now = this.Ctx.currentTime;
     this.Noise.start();
@@ -836,7 +836,7 @@ function Pluck() {
     this.Tremolo.connect(MasterIn);
     this.Ctx = Tone.context;
     this.Light = 0;
-    this.Channel.send("reverb",-5);
+    this.Channel.send("reverb",-10);
 }
 proto = Pluck.prototype;
 
@@ -853,7 +853,7 @@ proto.setup = function(f) {
     this.Attack = tombola.rangeFloat(0.005,0.01);
     this.Decay = 0.01;
     this.Sustain = 0.4;
-    this.Release = tombola.rangeFloat(2,3);
+    this.Release = tombola.rangeFloat(1.8,2.3);
     this.Tremolo.frequency.value = tombola.rangeFloat(5,12);
     this.Tremolo.depth.value = tombola.rangeFloat(0.3,0.6);
 
@@ -895,12 +895,19 @@ proto.trigger = function(v,f) {
 function PluckPlayer() {
     this.pluck = new Pluck();
     this.timer = null;
+    this.counter = 0;
+    this.resetInterval =null;
 }
 proto = PluckPlayer.prototype;
 
 proto.start = function() {
     var that = this;
     this.timer = setTimeout(function(){that.phrase();},2000);
+    this.resetInterval = setInterval(function(){that.reset();},100);
+};
+
+proto.reset = function() {
+    this.counter = 0;
 };
 
 proto.phrase = function() {
@@ -928,18 +935,26 @@ proto.phrase = function() {
 };
 
 proto.hit = function() {
-    this.pluck.trigger(30,tombola.weightedItem(pluckScale,pluckWeight));
-    if (tabFocused) {
-        pips.burst();
+    if (playing && this.counter<3) {
+        this.counter++;
+        this.pluck.trigger(30,tombola.weightedItem(pluckScale,pluckWeight));
+        if (tabFocused) {
+            pips.burst();
+        }
+        if (tombola.percent(8)) {
+            this.counter++;
+            this.pluck.trigger(30,tombola.weightedItem(pluckScale,pluckWeight));
+            if (tabFocused) {
+                pips.burst();
+            }
+        }
     }
-    /*var that = this;
-    var time = tombola.weightedItem([1000,2000],2,1);
-    this.timer = setTimeout(function(){that.hit();},time);*/
 };
 
 
 proto.stop = function() {
     clearTimeout(this.timer);
+    clearInterval(this.resetInterval);
 };
 
 
@@ -951,7 +966,7 @@ proto = ClapPlayer.prototype;
 
 proto.start = function() {
     var that = this;
-    this.timer = setTimeout(function(){that.hit();},7000);
+    this.timer = setTimeout(function(){that.hit();},5000);
 };
 
 proto.hit = function() {
@@ -960,7 +975,7 @@ proto.hit = function() {
         splitter.burst();
     }
     var that = this;
-    var time = tombola.range(1000,15000);
+    var time = tombola.range(2500,15000);
     this.timer = setTimeout(function(){that.hit();},time);
 };
 
@@ -979,7 +994,7 @@ proto = DronePlayer.prototype;
 
 proto.start = function() {
     var that = this;
-    this.timer = setTimeout(function(){that.hit();},1000);
+    this.timer = setTimeout(function(){that.hit();},500);
 };
 
 proto.hit = function() {
@@ -988,7 +1003,7 @@ proto.hit = function() {
         bursts.burst();
     }
     var that = this;
-    var time = tombola.range(4000,14000);
+    var time = tombola.range(5000,10000);
     this.timer = setTimeout(function(){that.hit();},time);
 };
 
@@ -1036,14 +1051,14 @@ proto = SinePlayer.prototype;
 
 proto.start = function() {
     var that = this;
-    var time = tombola.range(15000,40000);
+    var time = tombola.range(15,40)*1000;
     this.timer = setTimeout(function(){that.hit();},time);
 };
 
 proto.hit = function() {
     this.sine.trigger();
     var that = this;
-    var time = tombola.range(15000,40000);
+    var time = tombola.range(20,50)*1000;
     this.timer = setTimeout(function(){that.hit();},time);
 };
 

@@ -48,7 +48,7 @@ proto.burst = function() {
 
 function SplitChain() {
     this.p = [];
-    this.lives = 12;
+    this.lives = 10;
 }
 proto = SplitChain.prototype;
 

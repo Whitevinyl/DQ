@@ -2,8 +2,12 @@
 var Amethyst;
 var amRat = 500/420;
 var amLoaded = false;
+var topAlpha = new Alpha(0);
+
 
 function drawSetup() {
+    alphaTo(topAlpha,1,1);
+
     Amethyst = new Image();
     Amethyst.onload = function() {
         amLoaded = true;
@@ -77,6 +81,8 @@ function drawScene() {
     // pips //
     pips.draw();
 
+
+    cxa.globalAlpha = topAlpha.a;
 
     // arrow //
     setRGBA(255,255,255,1);

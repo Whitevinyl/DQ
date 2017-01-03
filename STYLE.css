@@ -47,6 +47,9 @@ canvas {
     text-align: left;
     font-family: 'Raleway', sans-serif;
     font-size: 21px;
+    opacity: 0;
+    -webkit-transition: opacity 1s;
+    transition: opacity 1s;
 }
 
 #head {

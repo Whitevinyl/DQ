@@ -36,7 +36,7 @@ proto.burst = function() {
     var y = dy + (tombola.range(-50,100)*units);
 
     var r = 45*units;
-    var n = tombola.range(8,12);
+    var n = tombola.range(7,11);
     for (var i=0; i<n; i++) {
         var mx = x + tombola.range(-r,r);
         var my = y + tombola.range(-r,r);

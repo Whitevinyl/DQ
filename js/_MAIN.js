@@ -96,6 +96,10 @@ function init() {
     imageA = new Alpha();
 
 
+    var content = document.getElementById("content");
+    content.style.opacity = "1";
+
+
     // DONE //
     scene = 1;
     drawSetup();
