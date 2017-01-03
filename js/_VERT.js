@@ -1,11 +1,8 @@
-
-
-
-function Bursts() {
+function Vert() {
     this.p1 = [];
     this.on = false;
 }
-var proto = Bursts.prototype;
+var proto = Vert.prototype;
 
 
 proto.setup = function() {
@@ -19,12 +16,14 @@ proto.update = function() {
             this.p1[i].update();
         }
     }
+
 };
 
 proto.draw = function() {
     if (this.on) {
         var l = this.p1.length;
-        setRGBA(255,255,255,1);
+        cxa.lineWidth = 2;
+        setColor(bgCols[4]);
         for (var i=0; i<l; i++) {
             this.p1[i].draw();
         }
@@ -35,68 +34,55 @@ proto.burst = function() {
     var x = dx + (tombola.range(-250,250)*units);
     var y = dy + (tombola.range(-50,100)*units);
 
-    var r = 45*units;
-    var n = tombola.range(8,12);
+    var r = 35*units;
+    var n = tombola.range(5,11);
     for (var i=0; i<n; i++) {
         var mx = x + tombola.range(-r,r);
         var my = y + tombola.range(-r,r);
-        var xs = tombola.rangeFloat(-2,2);
-        var ys = tombola.rangeFloat(-1,0);
-        this.p1.push(new P1(mx,my,xs,ys));
+        var s = tombola.rangeFloat(-1,0);
+        this.p1.push(new VertP(mx,my,s));
     }
 };
 
 
 
-function P1(x,y,xs,ys) {
+function VertP(x,y,s) {
     this.position = new Point(x,y);
-    this.speed = new Vector(xs,ys);
+    this.speed = s;
     this.s = tombola.rangeFloat(0.05,0.3);
     this.m1 = this.position.clone();
     this.m2 = this.position.clone();
-    this.m3 = this.position.clone();
 }
-proto = P1.prototype;
+proto = VertP.prototype;
 
 
 proto.update = function() {
 
     // kill if offscreen //
-    if (this.position.y<-5) {
+    if (this.position.y<-10) {
         this.kill();
         return;
     }
 
     // position history //
-    this.m3 = this.m2.clone();
     this.m2 = this.m1.clone();
     this.m1 = this.position.clone();
 
     // update speed & position //
-    var s = this.s;
-    if (this.position.x<dx) {
-        this.speed.x += s;
+    this.speed -= this.s;
+    if (this.speed<-30) {
+        this.speed = -30;
     }
-    if (this.position.x>dx) {
-        this.speed.x -= s;
-    }
-    this.speed.y -= s/2;
-
-    this.speed.x = valueInRange(this.speed.x,-12,12);
-    this.speed.y = valueInRange(this.speed.y,-30,10);
-    this.position.add(this.speed);
+    this.position.y += this.speed;
 };
 
 
 proto.kill = function() {
-    this.position.x = dx;
-    this.position.y = dy;
-
     // get my index //
-    var index = bursts.p1.indexOf(this);
+    var index = vert.p1.indexOf(this);
     // remove //
     if (index > -1) {
-        bursts.p1.splice(index, 1);
+        vert.p1.splice(index, 1);
     }
 };
 
@@ -104,15 +90,10 @@ proto.kill = function() {
 proto.draw = function() {
     var x = this.position.x;
     var y = this.position.y;
-    var t = this.m3;
-    var vx = x - t.x;
-    var vy = y - t.y;
-    var w = 0.1;
+    var t = this.m2;
 
     cxa.beginPath();
     cxa.moveTo(t.x,t.y);
-    cxa.lineTo(x + (vy*w),y - (vx*w));
-    cxa.lineTo(x - (vy*w),y + (vx*w));
-    cxa.closePath();
-    cxa.fill();
+    cxa.lineTo(x,y);
+    cxa.stroke();
 };

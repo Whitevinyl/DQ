@@ -1,11 +1,18 @@
-/**
- * Created by luketwyman on 03/11/2014.
- */
 
-
-var Amethyst = new Image();
-Amethyst.src = 'img/full.png';
+var Amethyst;
 var amRat = 500/420;
+var amLoaded = false;
+
+function drawSetup() {
+    Amethyst = new Image();
+    Amethyst.onload = function() {
+        amLoaded = true;
+        colourTo(bgCols[1],60,10,50,1,3);
+        alphaTo(imageA,0.5,3);
+    };
+
+    Amethyst.src = 'img/full.png';
+}
 
 
 //-------------------------------------------------------------------------------------------
@@ -14,12 +21,7 @@ var amRat = 500/420;
 
 
 function drawBG() {
-
-    //cxa.globalAlpha = 1;
-
     setColor(bgCols[0]);
-    //cxa.fillRect(0,0,fullX,fullY);
-
     cxa.clearRect(0,0,fullX,fullY);
 }
 
@@ -38,7 +40,6 @@ function drawScene() {
 
     var s = 1;
     var u = units * s;
-
     var x = dx;
     var y = dy - (scrollOffset/4);
     var arrowY = dy + (170*units) - (scrollOffset/2);
@@ -53,31 +54,50 @@ function drawScene() {
     drawShape(x,y,u);
 
 
-    // waves //
-    cxa.lineWidth = 2;
-    waves.draw();
+    // splitter //
+    cxa.lineWidth = 1.2*units;
+    splitter.draw();
+
 
     // image //
-    cxa.globalAlpha = 0.5;
-    var h = 230*u;
-    cxa.drawImage(Amethyst,dx-(h/2),y - ((h*amRat)/2),h,h*amRat);
+    if (amLoaded) {
+        cxa.globalAlpha = imageA.a;
+        var h = 230*u;
+        cxa.drawImage(Amethyst,dx-(h/2),y - ((h*amRat)/2),h,h*amRat);
+    }
+
     cxa.globalAlpha = 1;
-
-
-    // diamond //
-    diamond.draw();
-
 
     // particles //
     bursts.draw();
 
+    // vert //
+    vert.draw();
 
+    // pips //
+    pips.draw();
 
 
     // arrow //
     setRGBA(255,255,255,1);
     cxa.lineWidth = 1.5;
     drawArrow(x,arrowY,20*u);
+
+    if (playing) {
+        cxa.fillRect(20*u,20*u,3*u,13*u);
+        cxa.fillRect(28*u,20*u,3*u,13*u);
+    } else {
+        cxa.beginPath();
+        cxa.moveTo(20*u,20*u);
+        cxa.lineTo(20*u,33*u);
+        cxa.lineTo(32*u,26.5*u);
+        cxa.closePath();
+        cxa.fill();
+    }
+    if (playOver) {
+        cxa.fillRect(20*u,40*u,11*u,3*u);
+    }
+
 
     // title //
     cxa.textAlign = 'center';

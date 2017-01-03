@@ -3,11 +3,26 @@
  */
 
 
+function alphaTo(obj,d,t) {
 
+    t = t || 1;
+
+    var cPos = {a: obj.a };
+
+    var tween = new TWEEN.Tween(cPos);
+    tween.to({ a: d  }, t*1000);
+    tween.start();
+
+    tween.onUpdate(function() {
+        obj.a = this.a;
+    });
+
+    tween.easing( TWEEN.Easing.Quadratic.InOut );
+}
 
 function colourTo(col,r,g,b,a,t) {
 
-    t = t || 1000;
+    t = t || 1;
 
     var cPos = {red: col.R, green: col.G, blue: col.B, alpha: col.A };
 
@@ -27,7 +42,7 @@ function colourTo(col,r,g,b,a,t) {
 
 function colourToColour(col,col2,t) {
 
-    t = t || 1000;
+    t = t || 1;
 
     var cPos = {red: col.R, green: col.G, blue: col.B, alpha: col.A };
 

@@ -8,6 +8,17 @@
 
 var scrollOffset = 0;
 
+var tabFocused = true;
+
+window.onfocus = function() {
+    tabFocused = true;
+};
+window.onblur = function() {
+    tabFocused = false;
+};
+
+var playOver = false;
+
 function interactionInit(target) {
 
     // MOUSE //
@@ -59,10 +70,14 @@ function scrollEvent() {
 function mousePress() {
     mouseIsDown = true;
     rolloverCheck();
-    bursts.burst1();
 
-    waves.burst();
-
+    if (playOver) {
+        if (playing) {
+            pauseAudio();
+        } else {
+            playAudio();
+        }
+    }
 }
 
 function mouseRelease() {
@@ -90,7 +105,7 @@ function mouseMove(event) {
 }
 
 function rolloverCheck() {
-    //playOver = hudCheck(dx - (32*units),dy + (8*units) + (midType*0.9),64*units,64*units);
+    playOver = hudCheck(0,0,64*units,64*units);
 }
 
 function hudCheck(x,y,w,h) { // IS CURSOR WITHIN GIVEN BOUNDARIES

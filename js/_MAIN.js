@@ -36,17 +36,22 @@ var mouseIsDown = false;
 
 
 // COLORS //
-var bgCols = [new RGBA(0,79,66,1),new RGBA(255,255,255,1),new RGBA(242,28,85,1),new RGBA(90,0,90,1,1),new RGBA(228,100,127,1,1),new RGBA(98,9,115,1,1)];
+var bgCols = [new RGBA(0,79,66,1),new RGBA(22,13,27,1),new RGBA(242,28,85,1),new RGBA(90,0,90,1,1),new RGBA(228,100,127,1,1),new RGBA(98,9,115,1,1),new RGBA(22,13,27,1,1)];
 var textCol = new RGBA(255,255,255,1);
 var masterCol = new RGBA(0,0,0,0);
 var highPass = new RGBA(0,0,0,0);
 var lowPass = new RGBA(0,0,0,0);
 
+var imageA;
+
 
 var bursts;
-var waves;
 var diamond;
-var radial;
+var vert;
+var splitter;
+var pips;
+
+
 
 
 //-------------------------------------------------------------------------------------------
@@ -65,33 +70,36 @@ function init() {
     cxa.mozImageSmoothingEnabled = false;
     cxa.imageSmoothingEnabled = false;
 
-    // SET CANVAS & DRAWING POSITIONS //
+    setupAudio();
+
     metrics();
 
 
     bursts = new Bursts();
     bursts.setup();
 
-    waves = new Waves();
-    //waves.setup();
+    vert = new Vert();
+    vert.setup();
+
+    splitter = new Splitter();
+    splitter.setup();
+
+    pips = new Pip();
+    pips.setup();
+
 
     diamond = new Diamond();
-    diamond.setup();
+    //diamond.setup();
 
-    radial = new Radial();
-    radial.setup();
+
+
+    imageA = new Alpha();
+
 
     // DONE //
     scene = 1;
+    drawSetup();
     draw();
-
-
-
-    setTimeout( function() {
-        colourTo(bgCols[1],60,10,50,1,6);
-    },1000);
-
-
 
 } // END INIT
 
@@ -132,9 +140,10 @@ function update() {
     }
 
     bursts.update();
-    waves.update();
-    diamond.update();
-    radial.update();
+    vert.update();
+    splitter.update();
+    pips.update();
+    //diamond.update();
 }
 
 

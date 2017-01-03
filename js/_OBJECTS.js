@@ -55,7 +55,7 @@ function RGBA( r, g, b, a ) {
 }
 
 function Alpha(a) {
-    this.A = a;
+    this.a = a || 0;
 }
 
 function Particle(point,vector) {
